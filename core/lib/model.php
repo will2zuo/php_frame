@@ -12,9 +12,10 @@ class model extends \PDO
      */
     public function __construct()
     {
-        $dsn = 'mysql:host=localhost;dbname=blog';
-        $username = 'root';
-        $passwd = '';
+        $tmp = conf::all('databases');
+        $dsn = $tmp['DSN'];
+        $username = $tmp['USERNAME'];
+        $passwd = $tmp['PASSWORD'];
         try {
             parent::__construct($dsn, $username, $passwd);
         }catch (\PDOException $exception) {

@@ -26,7 +26,7 @@ class route
                 $this->action = $pathArr[1];
                 unset($pathArr[1]);
             }else {
-                $this->action = 'index';
+                $this->action = conf::get('ACTION', 'route');
             }
 
             // url 多余部分处理 /id/1/str/2/test/3
@@ -41,8 +41,8 @@ class route
             }
 
         }else {
-            $this->controller = 'index';
-            $this->action = 'index';
+            $this->controller = conf::get('CONTROLLER', 'route');
+            $this->action = conf::get('ACTION', 'route');
         }
     }
 }
