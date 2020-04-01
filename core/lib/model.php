@@ -4,7 +4,7 @@
 namespace core\lib;
 
 
-class model extends \PDO
+class model extends \Medoo\Medoo
 {
     /**
      * $dsn, $username = null, $passwd = null, $options = null
@@ -12,15 +12,7 @@ class model extends \PDO
      */
     public function __construct()
     {
-        $tmp = conf::all('databases');
-        $dsn = $tmp['DSN'];
-        $username = $tmp['USERNAME'];
-        $passwd = $tmp['PASSWORD'];
-        try {
-            parent::__construct($dsn, $username, $passwd);
-        }catch (\PDOException $exception) {
-            throw new \Exception($exception->getMessage());
-        }
-
+        $option = conf::all('databases');
+        parent::__construct($option);
     }
 }

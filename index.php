@@ -14,8 +14,13 @@ define('APP', IMMOC.'/app');
 define('MODULE', 'app');
 define('DEBUG', true);
 
+include 'vendor/autoload.php';
+
 if (DEBUG) {
     // 错误显示的开关
+    $whoops = new \Whoops\Run;
+    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+    $whoops->register();
     ini_set('display_errors', 'On');
 }else {
     ini_set('display_errors', 'Off');

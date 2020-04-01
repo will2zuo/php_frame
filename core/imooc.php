@@ -2,12 +2,17 @@
 
 namespace core;
 
+use core\lib\log;
+
 class imooc
 {
     public static $classMap = [];
     public $assign;
     public static function run()
     {
+        log::init();
+        log::log('test');
+        log::log($_SERVER, 'service');
         $route = new \core\lib\route();
         $controller = $route->controller;
         $action = $route->action;
@@ -47,8 +52,14 @@ class imooc
     {
         $file = APP.'/views/'.$file;
         if (is_file($file)) {
-            extract($this->assign);
-            include $file;
+            $loader = new \Twig\Loader\FilesystemLoader(APP.'/views');
+            $twig = new \Twig\Environment($loader, [
+                'cache' => IMMOC.'/log/twig',
+                'debug' => DEBUG
+            ]);
+
+            $template = $twig->load('index.html');
+            $template->display($this->assign ? $this->assign : []);
         }
     }
 }
